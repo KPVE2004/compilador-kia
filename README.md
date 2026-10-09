@@ -12,7 +12,7 @@ Proyecto desarrollado en equipo en el Instituto Tecnológico de Jiquilpan.
 
 | Integrante |
 | ---------- |
-| Katia Victoria |
+| Katia Paola Victoria Escalera |
 | Isamar Chávez Díaz |
 | Ángel de Jesús Canela Figueroa |
 
