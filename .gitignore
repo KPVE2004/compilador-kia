@@ -1,0 +1,13 @@
+# macOS / Windows
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Variables de entorno y secretos
+.env
+
+# Dependencias
+node_modules/

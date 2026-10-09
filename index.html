@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compilador Didáctico - LR</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="icon" type="image/png" href="./img/logo2.png">
+</head>
+<body>
+    <!-- Pantalla inicial -->
+    <div class="pantalla-inicial" id="pantalla-inicial">
+        <img src="./img/logo.png" alt="Logo Compilador" class="logo-grande">
+        <div class="mensaje-inicio">
+            <i class="fas fa-play-circle"></i> Haz clic para comenzar
+        </div>
+    </div>
+
+    <!-- Pantalla principal -->
+    <div class="pantalla-principal" id="pantalla-principal">
+        <!-- Header -->
+        <div class="app-header">
+            <div class="app-title">
+                <img src="./img/logo.png" alt="Logo" class="app-logo">
+                <span class="app-name">Compilador Didáctico - LR</span>
+            </div>
+        </div>
+
+        <!-- Barra de herramientas -->
+        <div class="toolbar-modern">
+            <button class="tool-btn" onclick="newFile()">
+                <i class="fas fa-file"></i> Nuevo
+            </button>
+            <button class="tool-btn" onclick="openFile()">
+                <i class="fas fa-folder-open"></i> Abrir
+            </button>
+            <button class="tool-btn" onclick="saveFile()">
+                <i class="fas fa-save"></i> Guardar
+            </button>
+            <button class="tool-btn" onclick="saveAsFile()">
+                <i class="fas fa-save"></i> Guardar como
+            </button>
+            <div class="tool-separator"></div>
+            <button class="tool-btn" onclick="undo()">
+                <i class="fas fa-undo"></i> Deshacer
+            </button>
+            <button class="tool-btn" onclick="redo()">
+                <i class="fas fa-redo"></i> Rehacer
+            </button>
+            <div class="tool-separator"></div>
+            <button class="tool-btn primary" onclick="compileCode()">
+                <i class="fas fa-play"></i> Compilar
+            </button>
+            <div style="flex: 1;"></div>
+            <button class="tool-btn" onclick="showHelp()">
+                <i class="fas fa-question-circle"></i> Ayuda
+            </button>
+            <button class="tool-btn" onclick="closeApp()">
+                <i class="fas fa-times"></i> Salir
+            </button>
+        </div>
+
+        <!-- Contenedor principal -->
+        <div class="main-container">
+            <!-- Editor -->
+            <div class="editor-panel">
+                <div class="panel-header">
+                    <div class="file-info">
+                        <i class="fas fa-file-code file-icon"></i>
+                        <span id="filename">sin_titulo.kia</span>
+                    </div>
+                    <div class="file-actions">
+                        <i class="fas fa-times" onclick="closeFile()" style="cursor: pointer;"></i>
+                    </div>
+                </div>
+                <div class="editor-wrapper">
+                    <div class="line-numbers" id="line-numbers">1</div>
+                    <textarea class="code-editor" id="code-area" placeholder="Escribe tu código aquí..." spellcheck="false"></textarea>
+                </div>
+            </div>
+
+            <!-- Resultados -->
+            <div class="results-panel">
+                <div class="results-tabs">
+                    <button class="tab active" onclick="switchTab('sintactico')">
+                        <i class="fas fa-sitemap"></i> Análisis Sintáctico
+                    </button>
+                    <button class="tab" onclick="switchTab('lexico')">
+                        <i class="fas fa-code"></i> Análisis Léxico
+                    </button>
+                    <button class="tab" onclick="switchTab('semantico')">
+                        <i class="fas fa-brain"></i> Análisis Semántico
+                    </button>
+                    <button class="tab" onclick="switchTab('errores')">
+                        <i class="fas fa-exclamation-triangle"></i> Errores
+                    </button>
+                </div>
+                <div class="tab-content">
+                    <!-- Análisis Sintáctico - Vacío inicialmente -->
+                    <div id="sintactico-tab" class="tab-pane active">
+                        <div class="info-message">
+                            <i class="fas fa-hourglass-half"></i>
+                            <h3>Esperando compilación</h3>
+                            <p>El análisis sintáctico LR aparecerá aquí después de compilar el código</p>
+                        </div>
+                    </div>
+
+                    <!-- Análisis Léxico - Vacío inicialmente -->
+                    <div id="lexico-tab" class="tab-pane">
+                        <div class="info-message">
+                            <i class="fas fa-hourglass-half"></i>
+                            <h3>Esperando compilación</h3>
+                            <p>La tabla de tokens aparecerá aquí después de compilar el código</p>
+                        </div>
+                    </div>
+
+                    <div id="semantico-tab" class="tab-pane">
+                        <div class="info-message">
+                            <i class="fas fa-hourglass-half"></i>
+                            <h3>Esperando compilación</h3>
+                            <p>El análisis semántico aparecerá aquí después de compilar el código</p>
+                        </div>
+                    </div>
+
+                    <!-- Errores - Vacío inicialmente -->
+                    <div id="errores-tab" class="tab-pane">
+                        <div class="info-message">
+                            <i class="fas fa-hourglass-half"></i>
+                            <h3>Esperando compilación</h3>
+                            <p>Los errores aparecerán aquí después de compilar el código</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barra de estado -->
+        <div class="status-bar">
+            <div class="status-item">
+                <i class="fas fa-check-circle" style="color: #28a745;"></i>
+                <span id="status-message">Listo</span>
+            </div>
+            <div class="status-item">
+                <i class="fas fa-text-height"></i>
+                <span id="cursor-position">Ln 1, Col 1</span>
+            </div>
+            <div class="status-item">
+                <i class="fas fa-code"></i>
+                <span>KIA - LR</span>
+            </div>
+            <div class="status-item">
+                <i class="fas fa-clock"></i>
+                <span id="line-count">1 línea</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de éxito -->
+    <div id="success-modal" class="modal success">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('success-modal')">&times;</button>
+            <i class="fas fa-check-circle" style="font-size: 48px; color: #28a745; margin-bottom: 15px;"></i>
+            <h3 style="margin-bottom: 10px; color: #28a745;">¡Compilación Exitosa!</h3>
+            <p>El código se ha compilado correctamente sin errores.</p>
+        </div>
+    </div>
+
+    <!-- Modal de errores -->
+    <div id="error-modal" class="modal error">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('error-modal')">&times;</button>
+            <i class="fas fa-exclamation-triangle" style="font-size: 48px; color: #dc3545; margin-bottom: 15px;"></i>
+            <h3 style="margin-bottom: 10px; color: #dc3545;">Errores de Compilación</h3>
+            <div id="error-list"></div>
+        </div>
+    </div>
+
+    <!-- Input oculto para abrir archivos -->
+    <input type="file" id="file-input" accept=".kia">
+
+    <script src="js/lexico.js"></script>
+    <script src="js/lr-parser.js"></script>
+    <script src="js/semantico.js"></script>
+    <script src="js/compilador.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
