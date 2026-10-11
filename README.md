@@ -216,8 +216,4 @@ Proyecto de compiladores — Instituto Tecnológico de Jiquilpan.
 
 **Katia Paola Victoria Escalera**
 
-## Author · Autora
-
-**Katia Paola Victoria Escalera**
-
 [Portfolio](https://katia-portfolio-six.vercel.app/) · [GitHub](https://github.com/KPVE2004) · [LinkedIn](https://www.linkedin.com/in/katia-victoria) · [Email](mailto:kp_victoria08@hotmail.com)
